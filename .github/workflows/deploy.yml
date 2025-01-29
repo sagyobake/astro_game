@@ -6,24 +6,24 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # Deno Deployでの認証に必要です。
-      contents: read # リポジトリのクローンに必要です。
+      id-token: write # Deno Deployã§ã®èªè¨¼ã«å¿è¦ã§ãã
+      contents: read # ãªãã¸ããªã®ã¯ã­ã¼ã³ã«å¿è¦ã§ãã
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
 
-      # npmを使用していない場合は、`npm ci`を`yarn install`または`pnpm i`に変更してください。
+      # npmãä½¿ç¨ãã¦ããªãå ´åã¯ã`npm ci`ã`yarn install`ã¾ãã¯`pnpm i`ã«å¤æ´ãã¦ãã ããã
       - name: Install dependencies
         run: npm ci
 
-      # npmを使用していない場合は、`npm run build`を`yarn build`または`pnpm run build`に変更してください。
+      # npmãä½¿ç¨ãã¦ããªãå ´åã¯ã`npm run build`ã`yarn build`ã¾ãã¯`pnpm run build`ã«å¤æ´ãã¦ãã ããã
       - name: Build Astro
         run: npm run build
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: my-deno-project # TODO： Deno Deployのプロジェクト名に置き換える。
+          project: my-deno-project # TODOï¼ Deno Deployã®ãã­ã¸ã§ã¯ãåã«ç½®ãæããã
           entrypoint: server/entry.mjs
           root: dist
